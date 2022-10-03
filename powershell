@@ -1,0 +1,8 @@
+new-azrecoveryservicesvault -resourcegroupname backupcli -name voldemort -location centralus
+get-azrecoveryservicesvault -name voldemort | set-azrecoveryservicesvaultcontext
+$vaultid = (get-azrecoveryservicesvault -name voldemort).id
+$vaultid
+get-azrecoveryservicesvault -name voldemort | set-azrecoveryservicesbackupproperty -backupstorageredundancy locallyredundant
+$policy = get-azrecoveryservicesbackupprotectionpolicy -name "DefaultPolicy"
+$policy
+enable-azrecoveryservicesbackupprotection -resourcegroupname backupcli -name backupclivm -policy $policy
